@@ -1,0 +1,238 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.0.1">
+    <title>Chat with Penny, your Virtual Coach | Money Cloud</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+
+
+    <style>
+
+      @keyframes slideInRight {
+        from {
+          transform: translate3d(100%, 0, 0);
+          visibility: visible;
+        }
+
+        to {
+          transform: translate3d(0, 0, 0);
+        }
+      }
+
+      button.chatLauncher {
+        animation-duration: 0.5s;
+        transition-duration: 0.5s;
+        position: fixed;
+        bottom: 32px;
+        right: 32px;
+        z-index: 9999;
+        border: 4px solid #075cc2;
+        padding: 1em;
+        border-radius: 8px;
+        margin: 0;
+        text-decoration: none;
+        background-color: #ffffff;
+        color: #454545;
+        font-family: sans-serif;
+        font-size: 1rem;
+        cursor: pointer;
+        text-align: left;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        width: 264px;
+        opacity: 0;
+      }
+
+      button.chatLauncher.open {
+        animation-name: slideInRight;
+        opacity: 1;
+      }
+
+      button.chatLauncher:hover,
+      button.chatLauncher:focus {
+        background-color: rgb(225, 225, 254);
+        border: 4px solid #0053ba;
+      }
+
+      button.chatLauncher:focus {
+        outline: 1px solid #0053ba;
+        outline-offset: -4px;
+      }
+
+      button.chatLauncher section {
+        display: flex;
+      }
+
+      button.chatLauncher img {
+        display: block;
+        height: 64px;
+        /* width: 64px; */
+        border-radius: 64px;
+        border: 4px solid #0053ba;
+      }
+
+      button.chatLauncher div {
+        text-align: left;
+        margin-left: 1rem;
+        font-size: 0.95rem;
+      }
+
+
+      .container {
+        padding-left: 0px !important;
+        margin-left: 0px !important;
+        padding-right: 0px !important;
+        margin-right: 0px !important;
+      }
+
+      .card-img-top {
+        width: 100vw;
+        height: 95vh;
+        object-fit: cover;
+      }
+
+      .bg-dark {
+        background-color: #1f2f48!important;
+      }
+
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="album.css" rel="stylesheet">
+
+
+  </head>
+  <body>
+    <header>
+  <div class="collapse bg-dark" id="navbarHeader">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 col-md-7 py-4">
+          <h4 class="text-white">About</h4>
+          <p class="text-muted">Money Cloud is currently still in development.</p>
+        </div>
+        <div class="col-sm-4 offset-md-1 py-4">
+          <h4 class="text-white">Contact</h4>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white">Follow on Twitter</a></li>
+            <li><a href="#" class="text-white">Like on Facebook</a></li>
+            <li><a href="#" class="text-white">Email us</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="navbar navbar-dark bg-dark shadow-sm">
+    <div class="container d-flex justify-content-between">
+      <a href="#" class="navbar-brand d-flex align-items-center">
+
+        <strong>Money Cloud</strong> &nbsp;&nbsp; <img src="android-chrome-192x192.png" width="30px">
+      </a>
+
+
+
+    </div>
+  </div>
+</header>
+
+<main role="main">
+
+  <div class="container">
+
+    <div class="row">
+      <div class="col">
+        <img src="rotating_avatar.gif" class="card-img-top">
+      </div>
+
+
+    </div>
+  </div>
+
+
+</main>
+
+<audio id="play_once_onclick">
+  <source src="https://aicoach.s3-ap-southeast-2.amazonaws.com/v2/voice/relation/1.mp3" type="audio/mp3">
+</audio>
+
+<!-- We want to hide this element initially, because Web Chat isn't ready yet. -->
+  <button type="button" class="chatLauncher" style="display:none;">
+    <section>
+      <img src="headshot_human_resized_100.png">
+      <div><strong>Ready to start?</strong> Click here to chat with Penny, your Virtual Coach.</div>
+    </section>
+  </button>
+
+<script>
+  window.watsonAssistantChatOptions = {
+    integrationID: "1f639623-44e6-4363-8516-8cc7a1e7ebda", // The ID of this integration.
+    region: "us-south", // The region your integration is hosted in.
+    serviceInstanceID: "9b155852-2f3c-4974-87e5-fd3e52efabd4", // The ID of your service instance.
+
+    showLauncher: false,
+    onLoad: function(instance) {
+      // Select the button element from the page.
+      const button = document.querySelector('.chatLauncher');
+
+      // Add the event listener to open your Web Chat.
+      button.addEventListener('click', function clickListener() {
+        instance.openWindow();
+      });
+
+      // Render the Web Chat. Nothing appears on the page, because the launcher is
+      // hidden and the Web Chat window is closed by default.
+      instance.render().then(function() {
+        // Now that Web Chat has been rendered (but is still closed), we make the
+        // custom launcher button visible.
+        button.style.display = 'block';
+        button.classList.add('open');
+      });
+    }
+  };
+
+  setTimeout(function(){const t=document.createElement('script');t.src='https://web-chat.global.assistant.watson.appdomain.cloud/loadWatsonAssistantChat.js';document.head.appendChild(t);});
+</script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script>
+    $(document).ready(function(){
+      if($("#play_once_onclick").length){
+        $("body").click(function(){
+          $('#play_once_onclick').get(0).play();
+          $('#play_once_onclick').attr('id', 'played_no_repeat');
+        });
+      }
+    });
+    </script>
+
+    <!-- <script>window.jQuery || document.write('<script src="https://getbootstrap.com/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')</script> -->
+    <script src="https://getbootstrap.com/docs/4.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>
+  </body>
+</html>
